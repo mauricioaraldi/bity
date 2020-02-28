@@ -1,47 +1,31 @@
 
 <div id="exchanges">
   <div class="exchange-tile" id="highest_value">
-    <p>200</p>
+    <p>{{ highestValue }}</p>
     <p>Highest value</p>
   </div>
 
   <div class="exchange-tile" id="lowest_value">
-    <p>40</p>
+    <p>{{ lowestValue }}</p>
     <p>Lowest value</p>
   </div>
 
+  <div class="exchange-tile" id="total_value">
+    <p>{{ totalValue }}</p>
+    <p>Total value</p>
+  </div>
+
   <div class="exchange-tile" id="average_value">
-    <p>120</p>
+    <p>{{ averageValue }}</p>
     <p>Average value</p>
   </div>
 
   <div class="exchange-tile" id="history">
     <h2>History</h2>
     <ul id="history_list">
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
-      <li>200</li>
+      <li *ngFor="let operation of operations">
+        {{ operation.date.toLocaleString() }}: {{ operation.value }}
+      </li>
     </ul>
   </div>
 </div>
