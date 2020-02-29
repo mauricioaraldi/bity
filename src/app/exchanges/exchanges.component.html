@@ -1,30 +1,39 @@
 
 <div id="exchanges">
-  <div class="exchange-tile" id="highest_value">
-    <p>{{ highestValue }}</p>
+  <div class="tile" id="highest_value">
+    <p>{{ highestValue ? highestValue : '-' }}</p>
     <p>Highest value</p>
   </div>
 
-  <div class="exchange-tile" id="lowest_value">
-    <p>{{ lowestValue }}</p>
+  <div class="tile" id="lowest_value">
+    <p>{{ lowestValue ? lowestValue : '-' }}</p>
     <p>Lowest value</p>
   </div>
 
-  <div class="exchange-tile" id="total_value">
+  <div class="tile" id="total_value">
     <p>{{ totalValue }}</p>
     <p>Total value</p>
   </div>
 
-  <div class="exchange-tile" id="average_value">
+  <div class="tile" id="average_value">
     <p>{{ averageValue }}</p>
     <p>Average value</p>
   </div>
 
-  <div class="exchange-tile" id="history">
+  <div class="tile list" id="deviations">
+    <h2>Deviations</h2>
+    <ul id="deviations_list">
+      <li *ngFor="let deviation of deviations">
+        {{ deviation.dateReceived.toLocaleString() }}: {{ deviation.feeAmount }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="tile list" id="history">
     <h2>History</h2>
     <ul id="history_list">
-      <li *ngFor="let operation of operations">
-        {{ operation.date.toLocaleString() }}: {{ operation.value }}
+      <li *ngFor="let transaction of transactions">
+        {{ transaction.dateReceived.toLocaleString() }}: {{ transaction.feeAmount }}
       </li>
     </ul>
   </div>

@@ -27,11 +27,8 @@ export class GraphQLConfigModule {
 
     const link = split(
       ({ query }) => {
-        // const { kind, operation } = getMainDefinition(query);
         const { kind } = getMainDefinition(query);
-        console.log(kind);
         return kind === 'OperationDefinition';
-        // return kind === 'OperationDefinition' && operation === 'subscription';
       },
       subscriptionLink,
       httpLink
