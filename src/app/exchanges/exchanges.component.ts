@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 
@@ -13,19 +13,20 @@ import { MAX_RENDERED_TRANSACTIONS, MAX_RENDERED_DEVIATIONS } from '../../consta
   templateUrl: './exchanges.component.html',
   styleUrls: ['./exchanges.component.css']
 })
-export class ExchangesComponent implements OnInit {
+export class ExchangesComponent implements OnInit, OnDestroy {
   transactions: Transaction[] = [];
   deviations: Transaction[] = [];
   highestValue: number = null;
   lowestValue: number = null;
-  averageValue: number = 0;
-  totalValue: number = 0;
-  transactionsQuantity: number = 0;
+  averageValue = 0;
+  totalValue = 0;
+  transactionsQuantity = 0;
+  operationsSubscription: Subscription = null;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    this.apollo.subscribe({
+    this.operationsSubscription = this.apollo.subscribe({
         query: OPERATIONS_GQL,
         variables: {
           type: 'payment'
@@ -45,6 +46,10 @@ export class ExchangesComponent implements OnInit {
         this.checkLowest(transaction);
         this.addTransactionToHistory(transaction);
       });
+  }
+
+  ngOnDestroy() {
+    this.operationsSubscription.unsubscribe();
   }
 
   /**
@@ -81,12 +86,12 @@ export class ExchangesComponent implements OnInit {
    *
    * @author mauricio.araldi
    * @since 0.1.0
-   * 
+   *
    * @param {Transaction} transaction Transaction to be checked
    * @returns {Boolean} If transaction is a deviation
    */
   isDeviation(transaction: Transaction): boolean {
-    return transaction.feeAmount > (this.averageValue * 2) 
+    return transaction.feeAmount > (this.averageValue * 2)
       || transaction.feeAmount < (this.averageValue / 2);
   }
 
