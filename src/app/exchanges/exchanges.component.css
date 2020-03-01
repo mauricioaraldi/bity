@@ -3,7 +3,7 @@
   display: grid;
   left: 8px;
   grid-gap: 8px;
-  grid-template-rows: 40px 40px auto;
+  grid-template-rows: 48px 48px auto;
   grid-template-columns: repeat(2, 1fr);
   position: absolute;
   right: 8px;
@@ -13,6 +13,7 @@
 .tile {
   background-color: #1D1D1D;
   border-radius: 8px;
+  padding: 4px 0;
   text-align: center;
 }
 
@@ -46,6 +47,10 @@
   padding: 0;
 }
 
+.list > ul > li {
+  font-size: 14px;
+}
+
 #deviations {
   display: none;
 }
@@ -68,7 +73,7 @@
 
 @media (min-width: 960px) {
   #exchanges {
-    grid-template-rows: 58px 58px auto;
+    grid-template-rows: 66px 66px auto;
     top: 48px;
   }
 
